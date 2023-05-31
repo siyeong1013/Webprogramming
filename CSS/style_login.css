@@ -1,0 +1,131 @@
+#wrap {
+    width: 800px;
+    margin: 10px auto;
+    text-align: center;
+}
+
+#wrap div.language {
+    text-align: right;
+}
+
+#wrap div.language select {
+    padding: 5px 8px;
+    border: 1px solid rgba(200, 200, 200, 1.0);
+    border-radius: 3px;
+}
+
+#wrap div.logo {
+    margin: 60px 0 0 0;
+}
+
+#wrap div.logo img {
+    width: 250px;
+    height: 250px;
+}
+
+#wrap div.login_form {
+    width: 492px;
+    margin: 0 auto;
+    border: 1px solid #dadada;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+#wrap div.login_form > ul {
+    width: 450px;
+    margin: 0 auto;
+}
+
+#wrap div.login_form > ul > li {
+    width: 150px;
+    border: 1px solid #dadada;
+    box-sizing: border-box;
+    padding: 10px;
+}
+
+#wrap div.login_form > ul > li:nth-child(1) {
+    border-radius: 5px 0 0 5px;
+}
+
+#wrap div.login_form > ul > li:nth-child(2) {
+    border-radius: 0;
+}
+
+#wrap div.login_form > ul > li:nth-child(3) {
+    border-radius: 0 5px 5px 0;
+}
+
+#wrap div.login_form > ul > li:hover {
+    background-color: rgba(200, 200, 200, .2);
+}
+
+#wrap div.login_form > input {
+    width: 410px;
+    border: 1px solid #dadada;
+    padding: 15px 20px;
+    font-size: 1.1em;
+}
+
+#wrap div.login_form > input[name='u_id'] {
+    margin-top: 15px;
+    border-radius: 5px 5px 0 0;
+}
+
+#wrap div.login_form > div {
+    width: 450px;
+    margin: 15px auto;
+    text-align: left;
+    font-size: .9em;
+    color: #5a5a5a;
+}
+
+#wrap div.login_form > div > button {
+    width: 450px;
+    margin-top: 22px;
+    color: #fff;
+    font-weight: bold;
+    background-color: #619273;
+    border: 0;
+    font-size: 1.5em;
+    padding: 10px 0;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+#wrap div.find_member {
+    width: 450px;
+    margin: 20px auto 40px;
+    font-size: .9em;
+    color: rgba(0, 0, 0, .4);
+}
+
+#wrap div.find_member a {
+    font-size: .95em;
+    color: rgba(0, 0, 0, .5);
+    margin: 0 5px;
+}
+
+#wrap div.office {
+    width: 500px;
+    margin: 0 auto 60px;
+    color: rgba(100, 100, 100, .8);
+}
+
+#wrap div.office > p {
+    margin: 10px 0 0 0;
+    color: rgba(100, 100, 100, .3);
+}
+
+#wrap div.office > p:nth-child(1) a {
+    font-size: .9em;
+    color: rgba(100, 100, 100, .8);
+}
+
+#wrap div.office > p:nth-child(2) {
+    font-size: .9em;
+}
+
+#wrap div.office > p:nth-child(2) > span {
+    margin-left: 10px;
+    color: rgba(100, 100, 100, .8);
+}

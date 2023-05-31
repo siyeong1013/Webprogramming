@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>청소년상담복지센터</title>
+	<style>
+		.region-selector {
+			position: absolute;
+			top: 10px;
+			left: 10px;
+			z-index: 10;
+		}
+
+		.region-selector select {
+			margin-bottom: 5px;
+		}
+
+		/* 나중에 css 수정 필요 */
+	</style>
+</head>
+
+<body>
+	<!-- 카테고리 총 3개 만들기. 상위 카테고리의 값에 따라 하위 카테고리가 결정되도록 -->
+	<div class="region-selector">
+		<select id="regionSelect">
+			<option value="">지역 선택</option>
+			<!-- API에서 항목 추출 -->
+		</select>
+		<br>
+		<select id="subRegionSelect">
+			<option value="">세부 지역 선택</option>
+			<!-- API에서 항목 추출 -->
+		</select>
+		<br>
+		<select id="centerSelect">
+			<option value="">센터 선택</option>
+			<!-- API에서 항목 추출 -->
+		</select>
+	</div>
+
+	<!-- 여기서부터 공공데이터API+카카오맵API 결합 코드 -->
+	<div id="map" style="width: 100%; height: 100vh"></div>
+	<script
+		src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=e77705a0604115d9fe5dc026dc4e06b7&libraries=clusterer"></script>
+	<script>
+		const url =
+		'https://apis.data.go.kr/1383000/gmis/teenDscsnSrcnServiceV2/getTeenDscsnSrcnListV2?serviceKey=%2Fol65CjXOUZZMkxP87o%2BPVRlV4%2FqXDEB%2Bjq1xuvHVy%2FBlxU000R9Z7Wds4BF%2FaBrLr%2FaGegD7Hgcvc0YXALdyQ%3D%3D&pageNo=1&numOfRows=239&type=json';
+
+		function mouseOverListener(map, marker, infoWindow) {
+			return function () {
+				infoWindow.open(map, marker);
+			};
+		}
+
+		function mouseOutListener(infoWindow) {
+			return function () {
+				infoWindow.close();
+			};
+		}
+		var mapContainer = document.getElementById("map");
+		var mapOption = {
+			center: new kakao.maps.LatLng(35.13417, 129.11397),
+			level: 7,
+		};
+
+		var map = new kakao.maps.Map(mapContainer, mapOption);
+
+		var clusterer = new kakao.maps.MarkerClusterer({
+			map: map,
+			averageCenter: true,
+			minLevel: 5,
+		});
+
+		function showMarkers(centers, region) {
+			var markers = [];
+			// ctpvNm가 데이터API에서의 시/도 이름 분류
+			for (var i = 0; i < centers.length; i++) {
+				if (region && !centers[i]["ctpvNm"].includes(region)) {
+					continue;
+				}
+				var lat = centers[i]["lat"];
+				var lot = centers[i]["lot"];
+				var marker = new kakao.maps.Marker({
+					position: new kakao.maps.LatLng(lat, lot),
+					map: map,
+				});
+
+				var infoWindow = new kakao.maps.InfoWindow({
+					content: centers[i]["cnterNm"],
+				});
+				markers.push(marker);
+				kakao.maps.event.addListener(marker, "mouseover", mouseOverListener(map, marker, infoWindow));
+				kakao.maps.event.addListener(marker, "mouseout", mouseOutListener(infoWindow));
+			}
+			clusterer.clear();
+			clusterer.addMarkers(markers);
+		}
+		// 여기까지 공공데이터API+카카오맵API 결합 코드
+
+
+		// 여기서부터 카테고리에 항목추가하는 코드
+		// API로부터 가져온 지역과 세부 지역 목록의 데이터를 저장할 객체. 지우면 안됨!
+		// 해당 객체가 센터 '위치' 인자까지 다 포함하는 객체인지는 좀더 분석 필요
+		let allRegions = {};
+		fetch(url)
+			.then((res) => res.json())
+			.then((resJson) => {
+				centers = resJson.response.body.items.item;
+				showMarkers(centers);
+
+				centers.forEach(center => {
+					let ctpvNm = center.ctpvNm; // ctptNm은 지역 정보를 담은 인자입니다.
+					let sggNm = center.sggNm;   // sggNm은 세부 지역 정보를 담은 인자입니다.
+
+					if (!allRegions[ctpvNm]) {
+						allRegions[ctpvNm] = new Set();
+					}
+					allRegions[ctpvNm].add(sggNm);
+				});
+
+				// 첫 번째 지역 목록에 최상위 지역 채우기
+				let regionSelect = document.getElementById("regionSelect");
+				for (let region in allRegions) {
+					let option = document.createElement("option");
+					option.value = region;
+					option.text = region;
+					regionSelect.add(option);
+				}
+
+				// 두 번째 지역 목록(세부 지역) 업데이트 함수
+				function updateSubRegions(subRegions) {
+					let subRegionSelect = document.getElementById("subRegionSelect");
+					subRegionSelect.innerHTML = '<option value="">세부 지역 선택</option>';
+
+					for (let subRegion of subRegions) {
+						let option = document.createElement("option");
+						option.value = subRegion;
+						option.text = subRegion;
+						subRegionSelect.add(option);
+					}
+				}
+
+				// 세번째 지역별 센터 목록 업데이트 함수
+				function updateCenterList(centers) {
+					let centerSelect = document.getElementById("centerSelect");
+					centerSelect.innerHTML = '<option value="">센터 선택</option>';
+
+					centers.forEach(center => {
+						let option = document.createElement("option");
+						option.value = center.cnterNm;
+						option.text = center.cnterNm;
+						centerSelect.add(option);
+					});
+				}
+
+				// 첫 번째 지역 목록 변경 이벤트에 연결
+				// 첫 카테고리에서 지역 바꾸면 두번째 카테고리도 자동으로 업데이트
+				regionSelect.addEventListener("change", function () {
+					let selectedRegion = this.value;
+					if (selectedRegion) {
+						updateSubRegions(allRegions[selectedRegion]);
+					} else {
+						document.getElementById("subRegionSelect").innerHTML = '<option value="">세부 지역 선택</option>';
+					}
+				});
+
+				// 두 번째 지역 목록 변경 이벤트에 연결
+				// 두 카테고리에서 지역 바꾸면 세번째 카테고리도 자동으로 업데이트
+				subRegionSelect.addEventListener("change", function () {
+					let selectedRegion = document.getElementById('regionSelect').value;
+					let selectedSubRegion = this.value;
+					if (selectedRegion && selectedSubRegion) {
+						let filteredCenters = centers.filter(center => {
+							return center.ctpvNm == selectedRegion && center.sggNm == selectedSubRegion;
+						});
+						updateCenterList(filteredCenters);
+					} else {
+						document.getElementById("centerSelect").innerHTML = '<option value="">센터 선택</option>';
+					}
+				});
+			});
+		// 여기까지 카테고리에 항목 추가하는 코드
+
+
+		// 코드 만든 의도는 세번째 카테고리까지 선택했을 시, 해당 센터의 위치인자를 받아 맵API에 연동하여 위치 변경 목적
+		// centers를 전역 변수로 선언하여 allRegions의 centers에 강제로 값 주입시키는 것으로 분석되나 확실치 않음.
+		var centers;
+		function getFilteredCenters(selectedRegion, selectedSubRegion, selectedCenter) {
+			return centers.filter(center => {
+				return center.ctpvNm == selectedRegion && center.sggNm == selectedSubRegion && (!selectedCenter || center.cnton == selectedCenter);
+			});
+		}
+
+		// 여기서부터 선택한 지역에 따라 마커 표시 및 맵이동 코드
+		function moveMapToCenter(lat, lng) {
+			var center = new kakao.maps.LatLng(lat, lng);
+			map.setCenter(center);
+		}
+		fetch(url)
+			.then((res) => res.json())
+			.then((resJson) => {
+				showMarkers(resJson.response.body.items.item);
+			});
+
+		document.getElementById("centerSelect").addEventListener("change", function () {
+			let selectedRegion = document.getElementById("regionSelect").value;
+			let selectedSubRegion = document.getElementById("subRegionSelect").value;
+			let selectedCenter = this.value;
+			if (selectedRegion && selectedSubRegion && selectedCenter) {
+				let filteredCenters = centers.filter(center => {
+					return center.ctpvNm == selectedRegion && center.sggNm == selectedSubRegion && center.cnterNm == selectedCenter;
+				});
+				if (filteredCenters.length) {
+					let center = filteredCenters[0];
+					let lat = center.lat;
+					let lng = center.lot;
+					moveMapToCenter(lat, lng);
+				}
+			}
+		});
+// 여기까지 선택한 지역에 따라 마커 표시 및 맵이동 코드
+	</script>
+</body>
+
+</html>

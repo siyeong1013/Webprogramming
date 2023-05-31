@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HPS-</title>
+
+  <link href="./CSS/style.css" rel="stylesheet" type="text/css">
+  <script src="./js/slide_script.js" type="text/javascript" defer></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=ef27fc18164bc2f6a47f70a3e44f8d94&libraries=clusterer"></script>
+  <script src="./js/json_list.js"></script>
+  
+  
+  <script>
+      $(document).ready(function() {
+          $.getJSON("all.json", function(data) {
+              let member_data = "";
+              $.each(data, function(key, value) {
+                  member_data += "<tr>";
+                  member_data += "<td>" + value.cnterNm + "</td>";
+                  member_data += "<td colspan='2'>" + value.roadNmAddr + "</td>";
+                  member_data += "<td>" + value.rprsTelno + "</td>";
+                  member_data += "</tr>";
+              });
+              $("#member_table tbody").append(member_data);
+          });
+      });
+  </script>
+</head>
+
+<body>
+    <div id="wrap">
+        <div class="header">
+            <img src="./imgs/logo.jpg">
+        </div>
+        <div class="search_login">
+            <ul>
+                <li class="search">
+                  <form action="https://search.naver.com/search.naver" target="_blank" onsubmit="this.query.value='';">
+                    <!--검색 눌렀을 때 검색과 동시에 검색창 초기화-->
+                    <input type="text" name="query" placeholder="검색어를 입력하세요">
+                    <button type="submit">검색</button> <!--검색 시 네이버로 연동되도록-->
+                  </form>
+                </li>
+                <li class="login"><a href="./html/index_login.html">로그인</a></li>
+            </ul>
+        </div>
+        <div class="menu">
+            <ul class="menubar">
+                <li>
+                  <p>건강 가정 지원센터</p> <!--홈페이지 링크 바로가기-->
+                  <ul class="submenu">
+                    <li><a href="./html/건강가정홈피.html">홈페이지 바로가기</a></li>
+                    <li><a href="./html/건강가정프로그램.html">진행 프로그램</a></li>
+                    <li><a href="./html/건강가정지원센터배너.html">센터 위치 보기</a></li>
+                  </ul>
+                </li>
+                <li>
+                  <p>청소년 상담 복지 센터</p>
+                  <ul class="submenu">
+                    <li><a href="./html/청소년상담홈피.html">홈페이지 바로가기</a></li>
+                    <li><a href="#">진행 프로그램</a></li>
+                    <li><a href="./html/청소년상담복지센터배너.html">센터 위치 보기</a></li>
+                  </ul>
+                </li>
+                <li>
+                  <p>아이돌봄 교육기관</p>
+                  <ul class="submenu">
+                    <li><a href="./html/아이돌봄홈피.html">홈페이지 바로가기</a></li>
+                    <li><a href="#">진행 프로그램</a></li>
+                    <li><a href="./html/아이돌봄교육기관배너.html">센터 위치 보기</a></li>
+                  </ul>
+                </li>
+                <li>
+                  <p>한부모가족 복지시설</p>
+                  <ul class="submenu">
+                    <li><a href="./html/한부모홈피.html">홈페이지 바로가기</a></li>
+                    <li><a href="#">진행 프로그램</a></li>
+                    <li><a href="./html/한부모가족시설배너.html">센터 위치 보기</a></li>
+                  </ul>
+                </li>
+                <li>
+                  <p>찾아오시는 길</p> <!--지도 API 연동-->
+                  <ul class="submenu">
+                    <li><a href="./html/건강가정지원센터배너.html">건강 가정 지원센터</a></li>
+                    <li><a href="./html/청소년상담복지센터배너.html">청소년 상담 복지 센터</a></li>
+                    <li><a href="./html/아이돌봄교육기관배너.html">아이돌봄 교육기관</a></li>
+                    <li><a href="./html/한부모가족시설배너.html">한부모가족 복지시설</a></li>
+                  </ul>
+                </li>
+              </ul>
+          </div>
+          <!--이미지 눌렀을 때 링크로 이동-->
+          <div class="slide_banner">
+              <div class="slide"><a href="https://www.idolbom.go.kr/front/upc/comm/htmlInfo.do?SEQ=12&L_MENU_CD=020202&H_MENU_CD=0202&SITE_ID=FRONT&MENU_SITE_ID=FRONT" target="_blank"><img src="./imgs/아이돌봄.PNG" alt=""></a></div>
+              <div class="slide"><a href="https://busannamgu.familynet.or.kr/center/lay1/program/S295T322C451/recruitReceipt/view.do?seq=8085" target="_blank"><img src="https://www.familydb.or.kr/images/temp/new_202305120452425690.jpg" alt=""></a></div>
+              <div class="slide"><a href="https://www.kyci.or.kr/boardManagement/board.asp?board_menu=view&boIdx=6987&rowNumber=2&page=1&nselect=1&bid=bid_1&menuCategory=5&boSoIdxi=&titlei=boTitle&findstr=" target="_blank"><img src="./imgs/청소년.PNG" alt=""></a></div>
+              <div class="slide"><a href="http://www.mogef.go.kr/nw/enw/nw_enw_s001d.do?mid=mda703&bbtSn=711080" target="_blank"><img src="./imgs/한부모가족.PNG" alt=""></a></div>
+            <p class="controller">
+
+              <!--dots 눌렀을 때 다음 슬라이드로 넘거가기-->
+              <div class="dots"></div>
+            </p>
+          </div>
+
+          <hr>
+          <!--메인화면에 나타날 지도-->
+          <ul class="mapData">
+            <li>
+              <div class="showMap">
+                <h2>내 주변 기관</h2>
+                <div id="map">
+                  <iframe src="./html/MapAPI(API합침).html" 
+                  width="800" height="650" style="border:0;" allowfullscreen="" loading="lazy">
+                  </iframe>
+                  <!-- <button>현재위치</button> -->
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="datatable">
+                <table id="member_table">
+                  <thead>
+                    <tr>
+                      <th rowspan="2"><h3>센터명</h3></th>
+                      <th colspan="2"><h3>도로명주소</h3></th>
+                      <th rowspan="2"><h3>전화번호</h3></th>
+                    </tr>
+                    <tr>
+                      <th>
+                        <!--드롭다운으로 지역, 군/구 선택 가능하도록.. 대충 틀만 잡아 놓은 것-->
+                        <!--JSON 에서 바로 받아올 순 없을까...-->
+                          <select id="regionSelect">
+                            <option value="">지역 선택</option>
+                            <!-- API에서 항목 추출 -->
+                            </select>
+                      </th>
+                      <th >
+                        <select id="subRegionSelect">
+                          <option value="">세부 지역 선택</option>
+                        <!-- API에서 항목 추출 -->
+                      </select>
+                    </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+  
+                  </tbody>
+              </div>
+
+            </li>
+          </ul>
+
+    </div>
+</body>
+</html>
