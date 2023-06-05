@@ -1,0 +1,61 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+    color: #242424;
+}
+
+a:hover {
+    text-decoration: underline;
+
+}
+
+ul {
+    overflow: hidden;
+}
+
+li {
+    list-style: none;
+    float: left;
+}
+
+#wrap {
+    width: 1400px;
+    margin: 50px auto;
+}
+
+#wrap div {
+    margin: 50px auto;
+}
+
+#wrap h2 {
+    font-weight: bold;
+    color: #619273;
+}
+
+#wrap hr {
+    margin-top: 50px;
+}
+
+#wrap div.howto table {
+    width: 1380px;
+    text-align: center;
+    border-collapse: collapse;
+    border: 1px solid #000;
+}
+
+#wrap div.howto table th {
+    border-collapse: collapse;
+    border: 1px solid #000;
+    background-color: #619273;
+    color: #fff;
+}
+
+#wrap div.howto table td {
+    border-collapse: collapse;
+    border: 1px solid #000;
+}
+

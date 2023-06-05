@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+
+    <link href="../CSS/program.css" rel="stylesheet" type="text/css">
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const url = 'https://apis.data.go.kr/1383000/YouthActivInfoCertiSrvc2/getCertiProgrmList?pageNo=1&numOfRows=287&type=xml&serviceKey=8PEk1OglxDaAaK1awSP3PWJkav6rLrMazcqSTSRRhMZV958l89V8z7T0p8JJCIrquFC9Jb9nj31i1Eshh7trvw%3D%3D';
+
+            fetch(url)
+                .then(response => response.text())
+                .then(data => {
+                    // XML 파싱
+                    const parser = new DOMParser();
+                    const xmlDoc = parser.parseFromString(data, "application/xml");
+                    const programs = xmlDoc.getElementsByTagName("item");
+
+                    // 데이터 처리 및 테이블에 표시
+                    const programTable = document.getElementById("program_table");
+                    for (let i = 0; i < programs.length; i++) {
+                        const program = programs[i];
+                        const insttNm = program.getElementsByTagName("organNm")[0].textContent;
+                        const progrmSj = program.getElementsByTagName("pgmNm")[0].textContent;
+                        const progrmFee = program.getElementsByTagName("price")[0].textContent;
+                        const progrmBgnde = program.getElementsByTagName("sdate")[0].textContent;
+                        const joingLimitCnt = program.getElementsByTagName("target")[0].textContent;
+
+                        const row = programTable.insertRow();
+                        row.insertCell().textContent = insttNm;
+                        row.insertCell().textContent = progrmSj;
+                        row.insertCell().textContent = progrmFee;
+                        row.insertCell().textContent = progrmBgnde;
+                        row.insertCell().textContent = joingLimitCnt;
+                    }
+                })
+                .catch(error => {
+                    console.error('XML 파일을 가져오는 중 오류가 발생했습니다:', error);
+                });
+        });
+    </script>
+</head>
+<body>
+    <div id="wrap">
+        <h2>진행 프로그램 안내</h2>
+        <hr>
+        <!--진행중인 프로그램 데이터 넣기-->
+
+    <div class="howto">
+        <h4>프로그램 신청은 기관 별 홈페이지를 참조하세요</h4>
+        <div class="container">
+            <div class="table-responsive" style="width:1600px; height:1000px; overflow:auto">
+                <br>
+                <table id="program_table">
+                    <thead>
+                        <tr>
+                            <th>기관명</th>
+                            <th>프로그램명</th>
+                            <th>가격</th>
+                            <th>날짜</th>
+                            <th>대상(명)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- 테이블 데이터가 여기에 추가됨 -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

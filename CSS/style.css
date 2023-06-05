@@ -9,7 +9,7 @@ a {
 }
 
 a:hover {
-    text-decoration: underline; 
+    text-decoration: underline;
 }
 
 li {
@@ -72,7 +72,7 @@ li {
     color: #fff;
 }
 
-#wrap ul.menubar > li {
+#wrap ul.menubar>li {
     position: relative;
     float: left;
     width: 20%;
@@ -98,11 +98,11 @@ li {
     background-color: #7ec699;
 }
 
-#wrap ul.menubar > li:hover {
+#wrap ul.menubar>li:hover {
     background-color: #7ec699;
 }
 
-#wrap ul.menubar > li:hover > .submenu {
+#wrap ul.menubar>li:hover>.submenu {
     height: 200px;
     display: block;
     transition-duration: 1s;
@@ -129,9 +129,10 @@ li {
 }
 
 #wrap div.slide_banner img {
-    max-width: 1400px; min-width: 1400px;
+    max-width: 1400px;
+    min-width: 1400px;
     height: 300px;
-} 
+}
 
 #wrap div.slide_banner span.left {
     left: 0px;
@@ -156,7 +157,7 @@ li {
     transform: translateX(-50%);
     display: flex;
 }
-  
+
 .dots__dot {
     border: none;
     background-color: #b9b9b9;
@@ -167,18 +168,18 @@ li {
     margin-right: 1.75rem;
     cursor: pointer;
     transition: all 0.5s;
-  
+
     /* Only necessary when overlying images */
     /* box-shadow: 0 0.6rem 1.5rem rgba(0, 0, 0, 0.7); */
 }
-  
+
 .dots__dot:last-child {
-  margin: 0;
+    margin: 0;
 }
-  
+
 .dots__dot--active {
-  background-color: #efefef;
-  opacity: 1;
+    background-color: #efefef;
+    opacity: 1;
 }
 
 #wrap div.showMap h2 {
@@ -199,13 +200,13 @@ li {
     margin-right: 20px;
 }
 
-#wrap div.showMap iframe {
+/* #wrap div.showMap iframe {
     position: relative;
 }
 
-/* #wrap div.showMap button {
+#wrap div.showMap button {
     position: absolute;
-    top: 890px; left: 60px;
+    top: 890px; left: 130px;
     width: 70px;
     padding: 5px;
     margin: 0 7px;
@@ -220,7 +221,7 @@ li {
 #wrap div.datatable {
     border-collapse: collapse;
     height: 680px;
-    overflow-y: scroll ;
+    overflow-y: scroll;
 }
 
 
@@ -244,4 +245,3 @@ li {
     font-size: 1.1em;
     font-weight: bold;
 }
-

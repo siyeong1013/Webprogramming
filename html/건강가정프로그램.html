@@ -1,16 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Document</title>
 
+    <link href="../CSS/건강program.css" rel="stylesheet" type="text/css" />
 
-</head>
-<body>
-    <div id="wrap">
-        <h2>진행 프로그램 안내</h2>
-        <hr>
-        <!--진행중인 프로그램 데이터 넣기-->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        $.getJSON("getHlthHomeSpcnList.json", function (data) {
+          let member_data = "";
+          $.each(data, function (key, value) {
+            member_data += "<tr>";
+            member_data += "<td>" + value.cnterNm + "</td>";
+            member_data += "<td>" + value.operMbyCn + "</td>";
+            member_data += "<td>" + value.ctpvNm + "</td>";
+            member_data += "<td>" + value.sggNm + "</td>";
+            member_data += "<td>" + value.roadNmAddr + "</td>";
+            member_data +=
+              "<td>" +
+              `<a href="${value.hmpgAddr}" target="__blank">` +
+              value.hmpgAddr +
+              "</a>" +
+              "</td>";
+            member_data += "<td>" + value.rprsTelno + "</td>";
+            member_data += "<td>" + value.dscsnTelno + "</td>";
+            member_data += "<td>" + value.emlAddr + "</td>";
+            member_data += "</tr>";
+          });
+          $("#member_table tbody").append(member_data);
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <div class="howto">
+      <h2>프로그램 참여 방법</h2>
+      <h3>기관 별 홈페이지 참조</h3>
+      <div class="container">
+        <div
+          class="table-responsive"
+          style="width: 1600px; height: 1000px; overflow: auto"
+        >
+          <br />
+          <table id="member_table">
+            <thead>
+              <tr>
+                <th>센터명</th>
+                <th>기관</th>
+                <th>지역</th>
+                <th>시/군/구</th>
+                <th>도로명주소</th>
+                <th>홈페이지 주소</th>
+                <th>기관 전화번호</th>
+                <th>전화번호2</th>
+                <th>이메일</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
     </div>
-</body>
+  </body>
 </html>

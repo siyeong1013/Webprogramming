@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>api별로 선택해서 각 지역별 센터까지</title>
+    <style>
+        .container {
+            display: inline-block;
+            vertical-align: top;
+        }
+
+        .left-container {
+            width: 300px;
+            padding: 20px;
+        }
+
+        .map-container {
+            width: calc(100% - 300px);
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        select {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 12px;
+            padding: 5px 10px;
+        }
+
+        #apiSelect {
+            left: 10px;
+            background-color: #51560b;
+            color: #fff;
+            border: none;
+        }
+
+        #citySelect,
+        #sggSelect,
+        #centerSelect {
+            left: 200px;
+            background-color: #235d98;
+            color: #fff;
+            border: 1px solid #adb5bd;
+        }
+
+        #sggSelect {
+            left: 300px;
+        }
+
+        #centerSelect {
+            left: 400px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container left-container">
+        <select id="apiSelect" onchange="changeAPI()">
+            <option value="" selected>센터 종류</option>
+            <option value="건강가정지원센터">건강가정지원센터</option>
+            <option value="아이돌봄 교육기관">아이돌봄 교육기관</option>
+            <option value="한부모가족복지시설">한부모가족복지시설</option>
+            <option value="청소년상담복지센터">청소년상담복지센터</option>
+        </select>
+        <select id="citySelect" onchange="changeRegional()">
+            <option value="" selected>시/도 선택</option>
+        </select>
+        <select id="sggSelect" onchange="changeCenter()">
+            <option value="" selected>구/군 선택</option>
+        </select>
+        <select id="centerSelect" onchange="showMarker()">
+            <option value="" selected>센터 선택</option>
+        </select>
+    </div>
+    <div id="map" class="container map-container"></div>
+
+    <script
+        src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=ef27fc18164bc2f6a47f70a3e44f8d94&libraries=clusterer"></script>
+    <script>
+        const apiSelect = document.getElementById("apiSelect");
+        const citySelect = document.getElementById("citySelect");
+        const sggSelect = document.getElementById("sggSelect");
+        const centerSelect = document.getElementById("centerSelect");
+
+        // 각 API의 URL
+        const apiURLs = {
+            "건강가정지원센터": 'https://apis.data.go.kr/1383000/gmis/hlthHomeSpcnService/getHlthHomeSpcnList?serviceKey=%2Fol65CjXOUZZMkxP87o%2BPVRlV4%2FqXDEB%2Bjq1xuvHVy%2FBlxU000R9Z7Wds4BF%2FaBrLr%2FaGegD7Hgcvc0YXALdyQ%3D%3D&pageNo=1&numOfRows=225&type=json',
+            "아이돌봄 교육기관": 'https://apis.data.go.kr/1383000/gmis/babysitEdnstServiceV2/getBabysitEdnstListV2?serviceKey=%2Fol65CjXOUZZMkxP87o%2BPVRlV4%2FqXDEB%2Bjq1xuvHVy%2FBlxU000R9Z7Wds4BF%2FaBrLr%2FaGegD7Hgcvc0YXALdyQ%3D%3D&pageNo=1&numOfRows=60&type=json',
+            "한부모가족복지시설": 'https://apis.data.go.kr/1383000/gmis/snparntFamSrftService/getSnparntFamSrftList?serviceKey=%2Fol65CjXOUZZMkxP87o%2BPVRlV4%2FqXDEB%2Bjq1xuvHVy%2FBlxU000R9Z7Wds4BF%2FaBrLr%2FaGegD7Hgcvc0YXALdyQ%3D%3D&pageNo=1&numOfRows=120&type=json',
+            "청소년상담복지센터": 'https://apis.data.go.kr/1383000/gmis/teenDscsnSrcnServiceV2/getTeenDscsnSrcnListV2?serviceKey=%2Fol65CjXOUZZMkxP87o%2BPVRlV4%2FqXDEB%2Bjq1xuvHVy%2FBlxU000R9Z7Wds4BF%2FaBrLr%2FaGegD7Hgcvc0YXALdyQ%3D%3D&pageNo=1&numOfRows=239&type=json'
+        };
+
+        // 마커 이름에 대한 객체
+        const markerNames = {
+            "건강가정지원센터": "cnterNm",
+            "아이돌봄 교육기관": "eduInstNm",
+            "한부모가족복지시설": "fcltNm",
+            "청소년상담복지센터": "cnterNm"
+        };
+
+        let selectedAPI;
+        let fetchedData;
+        let selectedCenterMarker;
+
+        function changeAPI() {
+            selectedAPI = apiSelect.value;
+            citySelect.length = 0;
+            sggSelect.length = 0;
+            centerSelect.length = 0;
+
+            if (selectedAPI) {
+                fetch(apiURLs[selectedAPI])
+                    .then(res => res.json())
+                    .then(resJson => {
+                        fetchedData = resJson.response.body.items.item;
+
+                        let cityList = new Set(fetchedData.map(item => item.ctpvNm));
+                        citySelect.add(new Option("시/도 선택", ""));
+                        cityList.forEach(city => {
+                            citySelect.add(new Option(city, city));
+                        });
+                    });
+            }
+        }
+
+        function changeRegional() {
+            let selectedCity = citySelect.value;
+            sggSelect.length = 0;
+            centerSelect.length = 0;
+
+            if (selectedCity) {
+                let sggList = new Set(fetchedData.filter(item => item.ctpvNm === selectedCity).map(item => item.sggNm));
+                sggSelect.add(new Option("구/군 선택", ""));
+                sggList.forEach(sgg => {
+                    sggSelect.add(new Option(sgg, sgg));
+                });
+            }
+        }
+
+        function changeCenter() {
+            let selectedCity = citySelect.value;
+            let selectedSgg = sggSelect.value;
+            centerSelect.length = 0;
+
+            if (selectedSgg) {
+                let centerList = fetchedData.filter(item => item.ctpvNm === selectedCity && item.sggNm === selectedSgg);
+                centerSelect.add(new Option("센터 선택", ""));
+                centerList.forEach(center => {
+                    if (selectedAPI === "한부모가족복지시설") {
+                        centerSelect.add(new Option(center[markerNames[selectedAPI]], center.LOT + ':' + center.LAT));
+                    } else {
+                        centerSelect.add(new Option(center[markerNames[selectedAPI]], center.lot + ':' + center.lat));
+                    }
+                });
+            }
+        }
+
+        function showMarker() {
+            let selectedCenter = centerSelect.value;
+
+            if (selectedCenter) {
+                let [lot, lat] = selectedCenter.split(':');
+                let centerPosition = new kakao.maps.LatLng(lat, lot);
+
+                // 마커 이름을 가져오는 부분
+                var centerName = centerSelect.options[centerSelect.selectedIndex].text;
+                var infoWindow = new kakao.maps.InfoWindow({
+                    content: centerName
+                });
+
+                if (selectedCenterMarker) {
+                    selectedCenterMarker.setPosition(centerPosition);
+                    kakao.maps.event.addListener(selectedCenterMarker, 'mouseover', mouseOverListener(map, selectedCenterMarker, infoWindow));
+                    kakao.maps.event.addListener(selectedCenterMarker, 'mouseout', mouseOutListener(infoWindow));
+                } else {
+                    selectedCenterMarker = new kakao.maps.Marker({
+                        position: centerPosition,
+                        map: map
+                    });
+                    kakao.maps.event.addListener(selectedCenterMarker, 'mouseover', mouseOverListener(map, selectedCenterMarker, infoWindow));
+                    kakao.maps.event.addListener(selectedCenterMarker, 'mouseout', mouseOutListener(infoWindow));
+                }
+                // 센터 위치로 지도 이동
+                map.setCenter(centerPosition);
+            }
+        }
+
+        // 인포윈도우 표시 열기
+        function mouseOverListener(map, marker, infoWindow) {
+            return function () {
+                infoWindow.open(map, marker);
+            };
+        }
+
+        // 인포윈도우 표시 닫기
+        function mouseOutListener(infoWindow) {
+            return function () {
+                infoWindow.close();
+            };
+        }
+
+        var mapContainer = document.getElementById("map"); // 지도를 표시할 div
+        var mapOption = {
+            center: new kakao.maps.LatLng(37.55947938, 126.9883829), // 지도의 중심좌표
+            level: 6, // 지도의 확대 레벨
+        };
+
+        var map = new kakao.maps.Map(mapContainer, mapOption);
+        var clusterer = new kakao.maps.MarkerClusterer({
+            map: map, // 마커들을 클러스터로 관리하고 표시할 지도 객체
+            averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정
+            minLevel: 5, // 클러스터 할 최소 지도 레벨
+        });
+
+
+        //건강가정지원센터
+        function createMarkersForHealthCenters() {
+            // ...건강가정지원센터 마커 생성 코드...
+            fetch('https://apis.data.go.kr/1383000/gmis/hlthHomeSpcnService/getHlthHomeSpcnList?serviceKey=%2Fol65CjXOUZZMkxP87o%2BPVRlV4%2FqXDEB%2Bjq1xuvHVy%2FBlxU000R9Z7Wds4BF%2FaBrLr%2FaGegD7Hgcvc0YXALdyQ%3D%3D&pageNo=1&numOfRows=225&type=json')
+                .then(res => res.json())
+                .then(resJson => {
+                    // console.log(resJson.response.body.items.item)
+
+                    var markers = [];
+
+                    // 가족 센터 좌표 리스트
+                    // 좌표 리스트에 접근하실 때, 아래와 같이 접근을 하셔야 item 요소 데이터를 읽어올 수 있습니다
+                    var centers = resJson.response.body.items.item;
+
+                    for (var i = 0; i < centers.length; i++) {
+                        var lat = centers[i]["lat"];
+                        var lot = centers[i]["lot"];
+                        var marker = new kakao.maps.Marker({
+                            position: new kakao.maps.LatLng(lat, lot),
+                            map: map,
+                        });
+
+                        var infoWindow = new kakao.maps.InfoWindow({
+                            content: centers[i]["cnterNm"],
+                        });
+
+                        // 마커 추가
+                        markers.push(marker);
+
+                        // 마커 이벤트리스너 등록
+                        kakao.maps.event.addListener(marker, "mouseover", mouseOverListener(map, marker, infoWindow));
+                        kakao.maps.event.addListener(marker, "mouseout", mouseOutListener(infoWindow));
+                    }
+
+                    clusterer.addMarkers(markers);
+                });
+        }
+
+
+        //아이돌봄 교육기관
+        function createMarkersForBabysittingInstitutions() {
+            // ...아이돌봄 교육기관 마커 생성 코드...
+            fetch('https://apis.data.go.kr/1383000/gmis/babysitEdnstServiceV2/getBabysitEdnstListV2?serviceKey=%2Fol65CjXOUZZMkxP87o%2BPVRlV4%2FqXDEB%2Bjq1xuvHVy%2FBlxU000R9Z7Wds4BF%2FaBrLr%2FaGegD7Hgcvc0YXALdyQ%3D%3D&pageNo=1&numOfRows=60&type=json')
+                .then(res => res.json())
+                .then(resJson => {
+                    // console.log(resJson.response.body.items.item)
+
+                    var markers = [];
+
+                    // 가족 센터 좌표 리스트
+                    // 좌표 리스트에 접근하실 때, 아래와 같이 접근을 하셔야 item 요소 데이터를 읽어올 수 있습니다
+                    var centers = resJson.response.body.items.item;
+
+                    for (var i = 0; i < centers.length; i++) {
+                        var lat = centers[i]["lat"];
+                        var lot = centers[i]["lot"];
+                        var marker = new kakao.maps.Marker({
+                            position: new kakao.maps.LatLng(lat, lot),
+                            map: map,
+                        });
+
+                        var infoWindow = new kakao.maps.InfoWindow({
+                            content: centers[i]["eduInstNm"],
+                        });
+
+                        // 마커 추가
+                        markers.push(marker);
+
+                        // 마커 이벤트리스너 등록
+                        kakao.maps.event.addListener(marker, "mouseover", mouseOverListener(map, marker, infoWindow));
+                        kakao.maps.event.addListener(marker, "mouseout", mouseOutListener(infoWindow));
+                    }
+
+                    clusterer.addMarkers(markers);
+                });
+        }
+
+
+        //한부모가족복지시설
+        function createMarkersForOneParentFamilyWelfare() {
+            // ...한부모가족복지시설 마커 생성 코드...
+            fetch('https://apis.data.go.kr/1383000/gmis/snparntFamSrftService/getSnparntFamSrftList?serviceKey=%2Fol65CjXOUZZMkxP87o%2BPVRlV4%2FqXDEB%2Bjq1xuvHVy%2FBlxU000R9Z7Wds4BF%2FaBrLr%2FaGegD7Hgcvc0YXALdyQ%3D%3D&pageNo=1&numOfRows=120&type=json')
+                .then(res => res.json())
+                .then(resJson => {
+                    // console.log(resJson.response.body.items.item)
+
+                    var markers = [];
+
+                    // 가족 센터 좌표 리스트
+                    // 좌표 리스트에 접근하실 때, 아래와 같이 접근을 하셔야 item 요소 데이터를 읽어올 수 있습니다
+                    var centers = resJson.response.body.items.item;
+
+                    for (var i = 0; i < centers.length; i++) {
+                        var lat = centers[i]["LAT"];
+                        var lot = centers[i]["LOT"];
+                        var marker = new kakao.maps.Marker({
+                            position: new kakao.maps.LatLng(lat, lot),
+                            map: map,
+                        });
+
+                        var infoWindow = new kakao.maps.InfoWindow({
+                            content: centers[i]["fcltNm"],
+                        });
+
+                        // 마커 추가
+                        markers.push(marker);
+
+                        // 마커 이벤트리스너 등록
+                        kakao.maps.event.addListener(marker, "mouseover", mouseOverListener(map, marker, infoWindow));
+                        kakao.maps.event.addListener(marker, "mouseout", mouseOutListener(infoWindow));
+                    }
+
+                    clusterer.addMarkers(markers);
+                });
+        }
+
+        //청소년상담복지센터
+        function createMarkersForYouthCounselingWelfare() {
+            // ...청소년상담복지센터 마커 생성 코드...
+            fetch('https://apis.data.go.kr/1383000/gmis/teenDscsnSrcnServiceV2/getTeenDscsnSrcnListV2?serviceKey=%2Fol65CjXOUZZMkxP87o%2BPVRlV4%2FqXDEB%2Bjq1xuvHVy%2FBlxU000R9Z7Wds4BF%2FaBrLr%2FaGegD7Hgcvc0YXALdyQ%3D%3D&pageNo=1&numOfRows=239&type=json')
+                .then(res => res.json())
+                .then(resJson => {
+                    // console.log(resJson.response.body.items.item)
+
+                    var markers = [];
+
+                    // 가족 센터 좌표 리스트
+                    // 좌표 리스트에 접근하실 때, 아래와 같이 접근을 하셔야 item 요소 데이터를 읽어올 수 있습니다
+                    var centers = resJson.response.body.items.item;
+
+                    for (var i = 0; i < centers.length; i++) {
+                        var lat = centers[i]["lat"];
+                        var lot = centers[i]["lot"];
+                        var marker = new kakao.maps.Marker({
+                            position: new kakao.maps.LatLng(lat, lot),
+                            map: map,
+                        });
+
+                        var infoWindow = new kakao.maps.InfoWindow({
+                            content: centers[i]["cnterNm"],
+                        });
+
+                        // 마커 추가
+                        markers.push(marker);
+
+                        // 마커 이벤트리스너 등록
+                        kakao.maps.event.addListener(marker, "mouseover", mouseOverListener(map, marker, infoWindow));
+                        kakao.maps.event.addListener(marker, "mouseout", mouseOutListener(infoWindow));
+                    }
+
+                    clusterer.addMarkers(markers);
+                });
+        }
+
+    </script>
+</body>
+
+</html>

@@ -1,33 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HPS-</title>
 
-  <link href="./CSS/style.css" rel="stylesheet" type="text/css">
-  <script src="./js/slide_script.js" type="text/javascript" defer></script>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=ef27fc18164bc2f6a47f70a3e44f8d94&libraries=clusterer"></script>
-  <script src="./js/json_list.js"></script>
-  
-  
-  <script>
-      $(document).ready(function() {
-          $.getJSON("all.json", function(data) {
-              let member_data = "";
-              $.each(data, function(key, value) {
-                  member_data += "<tr>";
-                  member_data += "<td>" + value.cnterNm + "</td>";
-                  member_data += "<td colspan='2'>" + value.roadNmAddr + "</td>";
-                  member_data += "<td>" + value.rprsTelno + "</td>";
-                  member_data += "</tr>";
-              });
-              $("#member_table tbody").append(member_data);
-          });
-      });
-  </script>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HPS-</title>
+
+    <link href="./CSS/style.css" rel="stylesheet" type="text/css">
+
+    <script src="./js/slide_script.js" type="text/javascript" defer></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script
+        src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=ef27fc18164bc2f6a47f70a3e44f8d94&libraries=clusterer"></script>
+    <script src="./js/index.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $.getJSON("all.json", function (data) {
+                let member_data = "";
+                $.each(data, function (key, value) {
+                    member_data += "<tr>";
+                    member_data += "<td>" + value.cnterNm + "</td>";
+                    member_data += "<td colspan='2'>" + value.roadNmAddr + "</td>";
+                    member_data += "<td>" + value.rprsTelno + "</td>";
+                    member_data += "</tr>";
+                });
+                $("#member_table tbody").append(member_data);
+            });
+        });
+    </script>
 </head>
 
 <body>
@@ -38,11 +40,12 @@
         <div class="search_login">
             <ul>
                 <li class="search">
-                  <form action="https://search.naver.com/search.naver" target="_blank" onsubmit="this.query.value='';">
-                    <!--검색 눌렀을 때 검색과 동시에 검색창 초기화-->
-                    <input type="text" name="query" placeholder="검색어를 입력하세요">
-                    <button type="submit">검색</button> <!--검색 시 네이버로 연동되도록-->
-                  </form>
+                    <form action="https://search.naver.com/search.naver" target="_blank"
+                        onsubmit="this.query.value='';">
+                        <!--검색 눌렀을 때 검색과 동시에 검색창 초기화-->
+                        <input type="text" name="query" placeholder="검색어를 입력하세요">
+                        <button type="submit">검색</button> <!--검색 시 네이버로 연동되도록-->
+                    </form>
                 </li>
                 <li class="login"><a href="./html/index_login.html">로그인</a></li>
             </ul>
@@ -50,109 +53,493 @@
         <div class="menu">
             <ul class="menubar">
                 <li>
-                  <p>건강 가정 지원센터</p> <!--홈페이지 링크 바로가기-->
-                  <ul class="submenu">
-                    <li><a href="./html/건강가정홈피.html">홈페이지 바로가기</a></li>
-                    <li><a href="./html/건강가정프로그램.html">진행 프로그램</a></li>
-                    <li><a href="./html/건강가정지원센터배너.html">센터 위치 보기</a></li>
-                  </ul>
+                    <p>건강 가정 지원센터</p> <!--홈페이지 링크 바로가기-->
+                    <ul class="submenu">
+                        <li><a href="./html/건강가정홈피.html">홈페이지 바로가기</a></li>
+                        <li><a href="./html/건강가정프로그램.html">진행 프로그램</a></li>
+                        <li><a href="./html/건강가정지원센터배너.html">센터 위치 보기</a></li>
+                    </ul>
                 </li>
                 <li>
-                  <p>청소년 상담 복지 센터</p>
-                  <ul class="submenu">
-                    <li><a href="./html/청소년상담홈피.html">홈페이지 바로가기</a></li>
-                    <li><a href="#">진행 프로그램</a></li>
-                    <li><a href="./html/청소년상담복지센터배너.html">센터 위치 보기</a></li>
-                  </ul>
+                    <p>청소년 상담 복지 센터</p>
+                    <ul class="submenu">
+                        <li><a href="./html/청소년상담홈피.html">홈페이지 바로가기</a></li>
+                        <li><a href="./html/청소년상담프로그램.html">진행 프로그램</a></li>
+                        <li><a href="./html/청소년상담복지센터배너.html">센터 위치 보기</a></li>
+                    </ul>
                 </li>
                 <li>
-                  <p>아이돌봄 교육기관</p>
-                  <ul class="submenu">
-                    <li><a href="./html/아이돌봄홈피.html">홈페이지 바로가기</a></li>
-                    <li><a href="#">진행 프로그램</a></li>
-                    <li><a href="./html/아이돌봄교육기관배너.html">센터 위치 보기</a></li>
-                  </ul>
+                    <p>아이돌봄 교육기관</p>
+                    <ul class="submenu">
+                        <li><a href="./html/아이돌봄홈피.html">홈페이지 바로가기</a></li>
+                        <li><a href="#">진행 프로그램</a></li>
+                        <li><a href="./html/아이돌봄교육기관배너.html">센터 위치 보기</a></li>
+                    </ul>
                 </li>
                 <li>
-                  <p>한부모가족 복지시설</p>
-                  <ul class="submenu">
-                    <li><a href="./html/한부모홈피.html">홈페이지 바로가기</a></li>
-                    <li><a href="#">진행 프로그램</a></li>
-                    <li><a href="./html/한부모가족시설배너.html">센터 위치 보기</a></li>
-                  </ul>
+                    <p>한부모가족 복지시설</p>
+                    <ul class="submenu">
+                        <li><a href="./html/한부모홈피.html">홈페이지 바로가기</a></li>
+                        <li><a href="#">진행 프로그램</a></li>
+                        <li><a href="./html/한부모가족시설배너.html">센터 위치 보기</a></li>
+                    </ul>
                 </li>
                 <li>
-                  <p>찾아오시는 길</p> <!--지도 API 연동-->
-                  <ul class="submenu">
-                    <li><a href="./html/건강가정지원센터배너.html">건강 가정 지원센터</a></li>
-                    <li><a href="./html/청소년상담복지센터배너.html">청소년 상담 복지 센터</a></li>
-                    <li><a href="./html/아이돌봄교육기관배너.html">아이돌봄 교육기관</a></li>
-                    <li><a href="./html/한부모가족시설배너.html">한부모가족 복지시설</a></li>
-                  </ul>
+                    <p>찾아오시는 길</p> <!--지도 API 연동-->
+                    <ul class="submenu">
+                        <li><a href="./html/건강가정지원센터배너.html">건강 가정 지원센터</a></li>
+                        <li><a href="./html/청소년상담복지센터배너.html">청소년 상담 복지 센터</a></li>
+                        <li><a href="./html/아이돌봄교육기관배너.html">아이돌봄 교육기관</a></li>
+                        <li><a href="./html/한부모가족시설배너.html">한부모가족 복지시설</a></li>
+                    </ul>
                 </li>
-              </ul>
-          </div>
-          <!--이미지 눌렀을 때 링크로 이동-->
-          <div class="slide_banner">
-              <div class="slide"><a href="https://www.idolbom.go.kr/front/upc/comm/htmlInfo.do?SEQ=12&L_MENU_CD=020202&H_MENU_CD=0202&SITE_ID=FRONT&MENU_SITE_ID=FRONT" target="_blank"><img src="./imgs/아이돌봄.PNG" alt=""></a></div>
-              <div class="slide"><a href="https://busannamgu.familynet.or.kr/center/lay1/program/S295T322C451/recruitReceipt/view.do?seq=8085" target="_blank"><img src="https://www.familydb.or.kr/images/temp/new_202305120452425690.jpg" alt=""></a></div>
-              <div class="slide"><a href="https://www.kyci.or.kr/boardManagement/board.asp?board_menu=view&boIdx=6987&rowNumber=2&page=1&nselect=1&bid=bid_1&menuCategory=5&boSoIdxi=&titlei=boTitle&findstr=" target="_blank"><img src="./imgs/청소년.PNG" alt=""></a></div>
-              <div class="slide"><a href="http://www.mogef.go.kr/nw/enw/nw_enw_s001d.do?mid=mda703&bbtSn=711080" target="_blank"><img src="./imgs/한부모가족.PNG" alt=""></a></div>
+            </ul>
+        </div>
+        <!--이미지 눌렀을 때 링크로 이동-->
+        <div class="slide_banner">
+            <div class="slide"><a
+                    href="https://www.idolbom.go.kr/front/upc/comm/htmlInfo.do?SEQ=12&L_MENU_CD=020202&H_MENU_CD=0202&SITE_ID=FRONT&MENU_SITE_ID=FRONT"
+                    target="_blank"><img src="./imgs/아이돌봄.PNG" alt=""></a></div>
+            <div class="slide"><a
+                    href="https://busannamgu.familynet.or.kr/center/lay1/program/S295T322C451/recruitReceipt/view.do?seq=8085"
+                    target="_blank"><img src="https://www.familydb.or.kr/images/temp/new_202305120452425690.jpg"
+                        alt=""></a></div>
+            <div class="slide"><a
+                    href="https://www.kyci.or.kr/boardManagement/board.asp?board_menu=view&boIdx=6987&rowNumber=2&page=1&nselect=1&bid=bid_1&menuCategory=5&boSoIdxi=&titlei=boTitle&findstr="
+                    target="_blank"><img src="./imgs/청소년.PNG" alt=""></a></div>
+            <div class="slide"><a href="http://www.mogef.go.kr/nw/enw/nw_enw_s001d.do?mid=mda703&bbtSn=711080"
+                    target="_blank"><img src="./imgs/한부모가족.PNG" alt=""></a></div>
             <p class="controller">
 
-              <!--dots 눌렀을 때 다음 슬라이드로 넘거가기-->
-              <div class="dots"></div>
+                <!--dots 눌렀을 때 다음 슬라이드로 넘거가기-->
+            <div class="dots"></div>
             </p>
-          </div>
+        </div>
 
-          <hr>
-          <!--메인화면에 나타날 지도-->
-          <ul class="mapData">
+        <hr>
+        <!--메인화면에 나타날 지도-->
+        <ul class="mapData">
             <li>
-              <div class="showMap">
-                <h2>내 주변 기관</h2>
-                <div id="map">
-                  <iframe src="./html/MapAPI(API합침).html" 
-                  width="800" height="650" style="border:0;" allowfullscreen="" loading="lazy">
-                  </iframe>
-                  <!-- <button>현재위치</button> -->
+                <div class="showMap">
+                    <h2>내 주변 기관</h2>
+                    <div id="map">
+                        <iframe src="./html/MapAPI(API합침).html" width="800" height="650" style="border:0;"
+                            allowfullscreen="" loading="lazy">
+                        </iframe>
+                        <!-- <button>현재위치</button>-->
+                    </div>
                 </div>
-              </div>
             </li>
-            <li>
-              <div class="datatable">
-                <table id="member_table">
-                  <thead>
-                    <tr>
-                      <th rowspan="2"><h3>센터명</h3></th>
-                      <th colspan="2"><h3>도로명주소</h3></th>
-                      <th rowspan="2"><h3>전화번호</h3></th>
-                    </tr>
-                    <tr>
-                      <th>
-                        <!--드롭다운으로 지역, 군/구 선택 가능하도록.. 대충 틀만 잡아 놓은 것-->
-                        <!--JSON 에서 바로 받아올 순 없을까...-->
-                          <select id="regionSelect">
-                            <option value="">지역 선택</option>
-                            <!-- API에서 항목 추출 -->
-                            </select>
-                      </th>
-                      <th >
-                        <select id="subRegionSelect">
-                          <option value="">세부 지역 선택</option>
-                        <!-- API에서 항목 추출 -->
-                      </select>
-                    </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-  
-                  </tbody>
-              </div>
+            <!--메인화면에 나타날 지도-->
 
+            <!-- 카테고리 선택 부분 -->
+            <li>
+                <div class="datatable">
+                    <table id="member_table">
+                        <thead>
+                            <tr>
+                                <th>센터 종류</th>
+                                <th>시/도 선택</th>
+                                <th>구/군 선택</th>
+                                <th>센터 선택</th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <select id="apiSelect" onchange="changeAPI()">
+                                        <option value="" selected>센터 종류</option>
+                                        <option value="건강가정지원센터">건강가정지원센터</option>
+                                        <option value="아이돌봄 교육기관">아이돌봄 교육기관</option>
+                                        <option value="한부모가족복지시설">한부모가족복지시설</option>
+                                        <option value="청소년상담복지센터">청소년상담복지센터</option>
+                                    </select>
+                                </th>
+                                <th>
+                                    <select id="citySelect" onchange="changeRegional()">
+                                        <option value="" selected>시/도 선택</option>
+                                    </select>
+                                </th>
+                                <th>
+                                    <select id="sggSelect" onchange="changeCenter()">
+                                        <option value="" selected>구/군 선택</option>
+                                    </select>
+                                </th>
+                                <th>
+                                    <select id="centerSelect" onchange="showMarker()">
+                                        <option value="" selected>센터 선택</option>
+                                    </select>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
             </li>
-          </ul>
+        </ul>
+
+        <script
+            src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=ef27fc18164bc2f6a47f70a3e44f8d94&libraries=clusterer"></script>
+            
+        <script>
+            const apiSelect = document.getElementById("apiSelect");
+            const citySelect = document.getElementById("citySelect");
+            const sggSelect = document.getElementById("sggSelect");
+            const centerSelect = document.getElementById("centerSelect");
+
+            // 각 API의 URL
+            const apiURLs = {
+                "건강가정지원센터": 'https://apis.data.go.kr/1383000/gmis/hlthHomeSpcnService/getHlthHomeSpcnList?serviceKey=%2Fol65CjXOUZZMkxP87o%2BPVRlV4%2FqXDEB%2Bjq1xuvHVy%2FBlxU000R9Z7Wds4BF%2FaBrLr%2FaGegD7Hgcvc0YXALdyQ%3D%3D&pageNo=1&numOfRows=225&type=json',
+                "아이돌봄 교육기관": 'https://apis.data.go.kr/1383000/gmis/babysitEdnstServiceV2/getBabysitEdnstListV2?serviceKey=%2Fol65CjXOUZZMkxP87o%2BPVRlV4%2FqXDEB%2Bjq1xuvHVy%2FBlxU000R9Z7Wds4BF%2FaBrLr%2FaGegD7Hgcvc0YXALdyQ%3D%3D&pageNo=1&numOfRows=60&type=json',
+                "한부모가족복지시설": 'https://apis.data.go.kr/1383000/gmis/snparntFamSrftService/getSnparntFamSrftList?serviceKey=%2Fol65CjXOUZZMkxP87o%2BPVRlV4%2FqXDEB%2Bjq1xuvHVy%2FBlxU000R9Z7Wds4BF%2FaBrLr%2FaGegD7Hgcvc0YXALdyQ%3D%3D&pageNo=1&numOfRows=120&type=json',
+                "청소년상담복지센터": 'https://apis.data.go.kr/1383000/gmis/teenDscsnSrcnServiceV2/getTeenDscsnSrcnListV2?serviceKey=%2Fol65CjXOUZZMkxP87o%2BPVRlV4%2FqXDEB%2Bjq1xuvHVy%2FBlxU000R9Z7Wds4BF%2FaBrLr%2FaGegD7Hgcvc0YXALdyQ%3D%3D&pageNo=1&numOfRows=239&type=json'
+            };
+
+            // 마커 이름에 대한 객체
+            const markerNames = {
+                "건강가정지원센터": "cnterNm",
+                "아이돌봄 교육기관": "eduInstNm",
+                "한부모가족복지시설": "fcltNm",
+                "청소년상담복지센터": "cnterNm"
+            };
+
+            let selectedAPI;
+            let fetchedData;
+            let selectedCenterMarker;
+
+            function changeAPI() {
+                selectedAPI = apiSelect.value;
+                citySelect.length = 0;
+                sggSelect.length = 0;
+                centerSelect.length = 0;
+
+                if (selectedAPI) {
+                    fetch(apiURLs[selectedAPI])
+                        .then(res => res.json())
+                        .then(resJson => {
+                            fetchedData = resJson.response.body.items.item;
+
+                            let cityList = new Set(fetchedData.map(item => item.ctpvNm));
+                            citySelect.add(new Option("시/도 선택", ""));
+                            cityList.forEach(city => {
+                                citySelect.add(new Option(city, city));
+                            });
+                        });
+                }
+            }
+
+            function changeRegional() {
+                let selectedCity = citySelect.value;
+                sggSelect.length = 0;
+                centerSelect.length = 0;
+
+                if (selectedCity) {
+                    let sggList = new Set(fetchedData.filter(item => item.ctpvNm === selectedCity).map(item => item.sggNm));
+                    sggSelect.add(new Option("구/군 선택", ""));
+                    sggList.forEach(sgg => {
+                        sggSelect.add(new Option(sgg, sgg));
+                    });
+                }
+            }
+
+            function changeCenter() {
+                let selectedCity = citySelect.value;
+                let selectedSgg = sggSelect.value;
+                centerSelect.length = 0;
+
+                if (selectedSgg) {
+                    let centerList = fetchedData.filter(item => item.ctpvNm === selectedCity && item.sggNm === selectedSgg);
+                    centerSelect.add(new Option("센터 선택", ""));
+                    centerList.forEach(center => {
+                        if (selectedAPI === "한부모가족복지시설") {
+                            centerSelect.add(new Option(center[markerNames[selectedAPI]], center.LOT + ':' + center.LAT));
+                        } else {
+                            centerSelect.add(new Option(center[markerNames[selectedAPI]], center.lot + ':' + center.lat));
+                        }
+                    });
+                }
+            }
+
+            function showMarker() {
+                let selectedCenter = centerSelect.value;
+
+                if (selectedCenter) {
+                    let [lot, lat] = selectedCenter.split(':');
+                    let centerPosition = new kakao.maps.LatLng(lat, lot);
+
+                    // 마커 이름을 가져오는 부분
+                    var centerName = centerSelect.options[centerSelect.selectedIndex].text;
+                    var infoWindow = new kakao.maps.InfoWindow({
+                        content: centerName
+                    });
+
+                    if (selectedCenterMarker) {
+                        selectedCenterMarker.setPosition(centerPosition);
+                        kakao.maps.event.addListener(selectedCenterMarker, 'mouseover', mouseOverListener(map, selectedCenterMarker, infoWindow));
+                        kakao.maps.event.addListener(selectedCenterMarker, 'mouseout', mouseOutListener(infoWindow));
+                    } else {
+                        selectedCenterMarker = new kakao.maps.Marker({
+                            position: centerPosition,
+                            map: map
+                        });
+                        kakao.maps.event.addListener(selectedCenterMarker, 'mouseover', mouseOverListener(map, selectedCenterMarker, infoWindow));
+                        kakao.maps.event.addListener(selectedCenterMarker, 'mouseout', mouseOutListener(infoWindow));
+                    }
+                    // 센터 위치로 지도 이동
+                    map.setCenter(centerPosition);
+                }
+            }
+
+            // 인포윈도우 표시 열기
+            function mouseOverListener(map, marker, infoWindow) {
+                return function () {
+                    infoWindow.open(map, marker);
+                };
+            }
+
+            // 인포윈도우 표시 닫기
+            function mouseOutListener(infoWindow) {
+                return function () {
+                    infoWindow.close();
+                };
+            }
+
+            var mapContainer = document.getElementById("map"); // 지도를 표시할 div
+            var mapOption = {
+                center: new kakao.maps.LatLng(37.55947938, 126.9883829), // 지도의 중심좌표
+                level: 6, // 지도의 확대 레벨
+            };
+
+            var map = new kakao.maps.Map(mapContainer, mapOption);
+            var clusterer = new kakao.maps.MarkerClusterer({
+                map: map, // 마커들을 클러스터로 관리하고 표시할 지도 객체
+                averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정
+                minLevel: 5, // 클러스터 할 최소 지도 레벨
+            });
+
+            // HTML5의 geolocation으로 사용할 수 있는지 확인합니다 
+            if (navigator.geolocation) {
+
+                // GeoLocation을 이용해서 접속 위치를 얻어옵니다
+                navigator.geolocation.getCurrentPosition(function (position) {
+
+                    var lat = position.coords.latitude, // 위도
+                        lon = position.coords.longitude; // 경도
+
+                    var locPosition = new kakao.maps.LatLng(lat, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
+                        message = '<div style="padding:5px;">여기에 계신가요?!</div>'; // 인포윈도우에 표시될 내용입니다
+
+                    // 마커와 인포윈도우를 표시합니다
+                    displayMarker(locPosition, message);
+
+                });
+
+            } else { // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정합니다
+
+                var locPosition = new kakao.maps.LatLng(33.450701, 126.570667),
+                    message = 'geolocation을 사용할수 없어요..'
+
+                displayMarker(locPosition, message);
+            }
+
+            // 지도에 마커와 인포윈도우를 표시하는 함수입니다
+            function displayMarker(locPosition, message) {
+
+                // 마커를 생성합니다
+                var marker = new kakao.maps.Marker({
+                    map: map,
+                    position: locPosition
+                });
+
+                var iwContent = message, // 인포윈도우에 표시할 내용
+                    iwRemoveable = true;
+
+                // 인포윈도우를 생성합니다
+                var infowindow = new kakao.maps.InfoWindow({
+                    content: iwContent,
+                    removable: iwRemoveable
+                });
+
+                // 인포윈도우를 마커위에 표시합니다 
+                infowindow.open(map, marker);
+
+                // 지도 중심좌표를 접속위치로 변경합니다
+                map.setCenter(locPosition);
+            }
+
+            // 지도 위에 컨트롤러 표시
+            // 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
+            var mapTypeControl = new kakao.maps.MapTypeControl();
+
+            // 지도에 컨트롤을 추가해야 지도위에 표시됩니다
+            // kakao.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
+            map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
+
+            // 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
+            var zoomControl = new kakao.maps.ZoomControl();
+            map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+
+
+
+            //건강가정지원센터
+            function createMarkersForHealthCenters() {
+                // ...건강가정지원센터 마커 생성 코드...
+                fetch('https://apis.data.go.kr/1383000/gmis/hlthHomeSpcnService/getHlthHomeSpcnList?serviceKey=%2Fol65CjXOUZZMkxP87o%2BPVRlV4%2FqXDEB%2Bjq1xuvHVy%2FBlxU000R9Z7Wds4BF%2FaBrLr%2FaGegD7Hgcvc0YXALdyQ%3D%3D&pageNo=1&numOfRows=225&type=json')
+                    .then(res => res.json())
+                    .then(resJson => {
+                        // console.log(resJson.response.body.items.item)
+
+                        var markers = [];
+
+                        // 가족 센터 좌표 리스트
+                        // 좌표 리스트에 접근하실 때, 아래와 같이 접근을 하셔야 item 요소 데이터를 읽어올 수 있습니다
+                        var centers = resJson.response.body.items.item;
+
+                        for (var i = 0; i < centers.length; i++) {
+                            var lat = centers[i]["lat"];
+                            var lot = centers[i]["lot"];
+                            var marker = new kakao.maps.Marker({
+                                position: new kakao.maps.LatLng(lat, lot),
+                                map: map,
+                            });
+
+                            var infoWindow = new kakao.maps.InfoWindow({
+                                content: centers[i]["cnterNm"],
+                            });
+
+                            // 마커 추가
+                            markers.push(marker);
+
+                            // 마커 이벤트리스너 등록
+                            kakao.maps.event.addListener(marker, "mouseover", mouseOverListener(map, marker, infoWindow));
+                            kakao.maps.event.addListener(marker, "mouseout", mouseOutListener(infoWindow));
+                        }
+
+                        clusterer.addMarkers(markers);
+                    });
+            }
+
+
+            //아이돌봄 교육기관
+            function createMarkersForBabysittingInstitutions() {
+                // ...아이돌봄 교육기관 마커 생성 코드...
+                fetch('https://apis.data.go.kr/1383000/gmis/babysitEdnstServiceV2/getBabysitEdnstListV2?serviceKey=%2Fol65CjXOUZZMkxP87o%2BPVRlV4%2FqXDEB%2Bjq1xuvHVy%2FBlxU000R9Z7Wds4BF%2FaBrLr%2FaGegD7Hgcvc0YXALdyQ%3D%3D&pageNo=1&numOfRows=60&type=json')
+                    .then(res => res.json())
+                    .then(resJson => {
+                        // console.log(resJson.response.body.items.item)
+
+                        var markers = [];
+
+                        // 가족 센터 좌표 리스트
+                        // 좌표 리스트에 접근하실 때, 아래와 같이 접근을 하셔야 item 요소 데이터를 읽어올 수 있습니다
+                        var centers = resJson.response.body.items.item;
+
+                        for (var i = 0; i < centers.length; i++) {
+                            var lat = centers[i]["lat"];
+                            var lot = centers[i]["lot"];
+                            var marker = new kakao.maps.Marker({
+                                position: new kakao.maps.LatLng(lat, lot),
+                                map: map,
+                            });
+
+                            var infoWindow = new kakao.maps.InfoWindow({
+                                content: centers[i]["eduInstNm"],
+                            });
+
+                            // 마커 추가
+                            markers.push(marker);
+
+                            // 마커 이벤트리스너 등록
+                            kakao.maps.event.addListener(marker, "mouseover", mouseOverListener(map, marker, infoWindow));
+                            kakao.maps.event.addListener(marker, "mouseout", mouseOutListener(infoWindow));
+                        }
+
+                        clusterer.addMarkers(markers);
+                    });
+            }
+
+
+            //한부모가족복지시설
+            function createMarkersForOneParentFamilyWelfare() {
+                // ...한부모가족복지시설 마커 생성 코드...
+                fetch('https://apis.data.go.kr/1383000/gmis/snparntFamSrftService/getSnparntFamSrftList?serviceKey=%2Fol65CjXOUZZMkxP87o%2BPVRlV4%2FqXDEB%2Bjq1xuvHVy%2FBlxU000R9Z7Wds4BF%2FaBrLr%2FaGegD7Hgcvc0YXALdyQ%3D%3D&pageNo=1&numOfRows=120&type=json')
+                    .then(res => res.json())
+                    .then(resJson => {
+                        // console.log(resJson.response.body.items.item)
+
+                        var markers = [];
+
+                        // 가족 센터 좌표 리스트
+                        // 좌표 리스트에 접근하실 때, 아래와 같이 접근을 하셔야 item 요소 데이터를 읽어올 수 있습니다
+                        var centers = resJson.response.body.items.item;
+
+                        for (var i = 0; i < centers.length; i++) {
+                            var lat = centers[i]["LAT"];
+                            var lot = centers[i]["LOT"];
+                            var marker = new kakao.maps.Marker({
+                                position: new kakao.maps.LatLng(lat, lot),
+                                map: map,
+                            });
+
+                            var infoWindow = new kakao.maps.InfoWindow({
+                                content: centers[i]["fcltNm"],
+                            });
+
+                            // 마커 추가
+                            markers.push(marker);
+
+                            // 마커 이벤트리스너 등록
+                            kakao.maps.event.addListener(marker, "mouseover", mouseOverListener(map, marker, infoWindow));
+                            kakao.maps.event.addListener(marker, "mouseout", mouseOutListener(infoWindow));
+                        }
+
+                        clusterer.addMarkers(markers);
+                    });
+            }
+
+            //청소년상담복지센터
+            function createMarkersForYouthCounselingWelfare() {
+                // ...청소년상담복지센터 마커 생성 코드...
+                fetch('https://apis.data.go.kr/1383000/gmis/teenDscsnSrcnServiceV2/getTeenDscsnSrcnListV2?serviceKey=%2Fol65CjXOUZZMkxP87o%2BPVRlV4%2FqXDEB%2Bjq1xuvHVy%2FBlxU000R9Z7Wds4BF%2FaBrLr%2FaGegD7Hgcvc0YXALdyQ%3D%3D&pageNo=1&numOfRows=239&type=json')
+                    .then(res => res.json())
+                    .then(resJson => {
+                        // console.log(resJson.response.body.items.item)
+
+                        var markers = [];
+
+                        // 가족 센터 좌표 리스트
+                        // 좌표 리스트에 접근하실 때, 아래와 같이 접근을 하셔야 item 요소 데이터를 읽어올 수 있습니다
+                        var centers = resJson.response.body.items.item;
+
+                        for (var i = 0; i < centers.length; i++) {
+                            var lat = centers[i]["lat"];
+                            var lot = centers[i]["lot"];
+                            var marker = new kakao.maps.Marker({
+                                position: new kakao.maps.LatLng(lat, lot),
+                                map: map,
+                            });
+
+                            var infoWindow = new kakao.maps.InfoWindow({
+                                content: centers[i]["cnterNm"],
+                            });
+
+                            // 마커 추가
+                            markers.push(marker);
+
+                            // 마커 이벤트리스너 등록
+                            kakao.maps.event.addListener(marker, "mouseover", mouseOverListener(map, marker, infoWindow));
+                            kakao.maps.event.addListener(marker, "mouseout", mouseOutListener(infoWindow));
+                        }
+
+                        clusterer.addMarkers(markers);
+                    });
+            }
+
+        </script>
+        <!-- 카테고리 선택 부분 -->
+        </ul>
 
     </div>
 </body>
+
 </html>

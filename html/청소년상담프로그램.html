@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+
+    <link href="../CSS/청소년program.css" rel="stylesheet" type="text/css" />
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        $.getJSON("getTeenDscsnSrcnListV2.json", function (data) {
+          let member_data = "";
+          $.each(data, function (key, value) {
+            member_data += "<tr>";
+            member_data += "<td>" + value.cnterNm + "</td>";
+            member_data += "<td>" + value.instlTypeCn + "</td>";
+            member_data += "<td>" + value.ctpvNm + "</td>";
+            member_data += "<td>" + value.sggNm + "</td>";
+            member_data += "<td>" + value.roadNmAddr + "</td>";
+            member_data += 
+            "<td>" +
+                `<a href="http://${value.hmpgAddr}" target="__blank">` +
+                value.hmpgAddr +
+                "</a>" +
+                "</td>";
+            member_data += "<td>" + value.rprsTelno + "</td>";
+            member_data += "<td>" + value.emlAddr + "</td>";
+            member_data += "<td>" + value.operHrCn + "</td>";
+            member_data += "</tr>";
+          });
+          $("#member_table tbody").append(member_data);
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <div class="howto">
+        <h2>프로그램 참여 방법</h2>
+        <h3>기관 별 홈페이지 참조</h3>
+        <div class="container">
+          <div
+            class="table-responsive"
+            style="width: 1600px; height: 1000px; overflow: auto"
+          >
+            <br />
+            <table id="member_table">
+              <thead>
+                <tr>
+                  <th>센터명</th>
+                  <th>기관</th>
+                  <th>지역</th>
+                  <th>시/군/구</th>
+                  <th>도로명주소</th>
+                  <th>홈페이지 주소</th>
+                  <th>기관 전화번호</th>
+                  <th>이메일</th>
+                  <th>운영시간</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+  </body>
+</html>

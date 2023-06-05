@@ -1,126 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>청소년상담복지센터</title>
 
-    <link href="../CSS/청소년homepage.css" rel="stylesheet" type="text/css">
+    <link href="../CSS/청소년homepage.css" rel="stylesheet" type="text/css" />
+  </head>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $.getJSON("getTeenDscsnSrcnListV2.json", function(data) {
-                let member_data = "";
-                $.each(data, function(key, value) {
-                    member_data += "<tr>";
-                    member_data += "<td>" + value.cnterNm + "</td>";
-                    member_data += "<td>" + value.instlTypeCn + "</td>";
-                    member_data += "<td>" + value.ctpvNm + "</td>";
-                    member_data += "<td>" + value.sggNm + "</td>";
-                    member_data += "<td>" + value.roadNmAddr + "</td>";
-                    member_data += "<td>" + value.hmpgAddr + "</td>";
-                    member_data += "<td>" + value.rprsTelno + "</td>";
-                    member_data += "<td>" + value.emlAddr + "</td>";
-                    member_data += "<td>" + value.operHrCn + "</td>";
-                    member_data += "</tr>";
-                });
-                $("#member_table tbody").append(member_data);
-            });
-        });
-    </script>
-</head>
-
-<body>
+  <body>
     <div id="wrap">
-        <div class="main">
-            <img src="https://www.kyci.or.kr/userSite/images/common/logo.png">
-            <h1>한국 청소년 상담 복지 센터</h1>
-        </div>
-        <div>
-            <h2> 홈페이지</h2>
-            <a href="https://www.kyci.or.kr/userSite/index.asp" target="_blank">홈페이지 바로가기</a>
-        </div>
-        <div class="introduce">
-            <h2>사업소개</h2>
-            <ul class="divide">
-                <li>
-                    <div><img src="../imgs/청소년사업전략.JPG"></div>
-                </li>
-                <li>
-                    <ul>
-                        <li>
-                            <span>청소년안전망 운영사업</span>
-                            <br>
-                            지역주민, 기관, 단체 등 지역 내 활용가능한 자원의 연계를 통해 지역사회청소년통합지원체계(청소년안전망)를 구축하여 위기상황에 처한 청소년들을 발견하고 통합적인 상담복지 서비스를 제공하는 사업입니다.
-                        </li>
-                        <li>
-                            <span>청소년안전망데이터 활용·관리 사업</span>
-                            <br>
-                            유관기관 간 정보공유, 연계 강화를 통한 효율적 서비스 제공을 목적으로 하는 청소년안전망시스템 구축·운영과 청소년안전망 서비스 품질 제고를 위한 데이터 분석·활용, 지자체 청소년안전망 선도사업 운영·지원 등을 수행하는 사업입니다.
-                        </li>
-                        <li>
-                            <span>학교 밖 청소년 지원사업</span>
-                            <br>
-                            학교 밖 청소년의 학업복귀나 사회진입을 도와 건강한 사회구성원으로 성장할 수 있도록 지원하는 사업입니다.
-                        </li>
-                        <li>
-                            <span>다양한가족지원</span>
-                            <br>
-                            다문화가족, 북한이탈주민 가족, 한부모가족, 1인가구, 군인가족, 일탈청소년 가족 등 다양한 가족유형 중 지역적 특성에 맞는 대상을 선정하여 상담·교육·문화가 포함된 통합 맞춤형 서비스를 제공합니다. 가족의 역량을 강화하여 가족의 기능을 발휘하고 사회에 적응할 수 있도록 지원하는 사업을 운영합니다.                    
-                        </li>
-                        <li>
-                            <span>청소년 인터넷·스마트폰 과의존 예방 및 해소사업</span>
-                            <br>
-                            체계적인 대상자 발굴과 맞춤형 서비스 제공을 통하여 해마다 증가하는 청소년의 인터넷·스마트폰 과의존을 예방하고 치유하기 위한 사업입니다.
-                        </li>
-                        <li>
-                            <span>청소년폭력예방 지원사업</span>
-                            <br>
-                            한국청소년상담복지개발원에서는 공감ㆍ배려의 청소년문화 확산을 위해 솔리언또래상담 프로그램을 개발하여 보급하고 있습니다. 1994년부터 청소년 대상 또래상담자 훈련 프로그램을 개발하여 전국 초·중·고등학생 등에게 꾸준히 보급하고 있으며, ‘솔리언 또래상담’은 한국청소년상담복지개발원에서 개발하고 보급하는 또래상담 프로그램의 고유 명칭입니다.
-                        </li>
-                        <li>
-                            <span>청소년 권리교육 사업</span>
-                            <br>
-                            권리의 주체자이자 의무자인 청소년들이 자신의 권리를 지키고 타인의 권리를 존중해주며 희망 속에 살아갈 수 있도록 권리교육 프로그램을 개발·보급하고 교육 인력을 양성하는 사업입니다.
-                        </li>
-                    </ul>
-                </li>
+      <div class="main">
+        <img src="https://www.kyci.or.kr/userSite/images/common/logo.png" />
+        <h1>한국 청소년 상담 복지 센터</h1>
+      </div>
+      <div>
+        <h2>홈페이지</h2>
+        <a href="https://www.kyci.or.kr/userSite/index.asp" target="_blank"
+          >홈페이지 바로가기</a
+        >
+      </div>
+      <div class="introduce">
+        <h2>사업소개</h2>
+        <ul class="divide">
+          <li>
+            <div><img src="../imgs/청소년사업전략.JPG" /></div>
+          </li>
+          <li>
+            <ul>
+              <li>
+                <span>청소년안전망 운영사업</span>
+                <br />
+                지역주민, 기관, 단체 등 지역 내 활용가능한 자원의 연계를 통해
+                지역사회청소년통합지원체계(청소년안전망)를 구축하여 위기상황에
+                처한 청소년들을 발견하고 통합적인 상담복지 서비스를 제공하는
+                사업입니다.
+              </li>
+              <li>
+                <span>청소년안전망데이터 활용·관리 사업</span>
+                <br />
+                유관기관 간 정보공유, 연계 강화를 통한 효율적 서비스 제공을
+                목적으로 하는 청소년안전망시스템 구축·운영과 청소년안전망 서비스
+                품질 제고를 위한 데이터 분석·활용, 지자체 청소년안전망 선도사업
+                운영·지원 등을 수행하는 사업입니다.
+              </li>
+              <li>
+                <span>학교 밖 청소년 지원사업</span>
+                <br />
+                학교 밖 청소년의 학업복귀나 사회진입을 도와 건강한
+                사회구성원으로 성장할 수 있도록 지원하는 사업입니다.
+              </li>
+              <li>
+                <span>다양한가족지원</span>
+                <br />
+                다문화가족, 북한이탈주민 가족, 한부모가족, 1인가구, 군인가족,
+                일탈청소년 가족 등 다양한 가족유형 중 지역적 특성에 맞는 대상을
+                선정하여 상담·교육·문화가 포함된 통합 맞춤형 서비스를
+                제공합니다. 가족의 역량을 강화하여 가족의 기능을 발휘하고 사회에
+                적응할 수 있도록 지원하는 사업을 운영합니다.
+              </li>
+              <li>
+                <span>청소년 인터넷·스마트폰 과의존 예방 및 해소사업</span>
+                <br />
+                체계적인 대상자 발굴과 맞춤형 서비스 제공을 통하여 해마다
+                증가하는 청소년의 인터넷·스마트폰 과의존을 예방하고 치유하기
+                위한 사업입니다.
+              </li>
+              <li>
+                <span>청소년폭력예방 지원사업</span>
+                <br />
+                한국청소년상담복지개발원에서는 공감ㆍ배려의 청소년문화 확산을
+                위해 솔리언또래상담 프로그램을 개발하여 보급하고 있습니다.
+                1994년부터 청소년 대상 또래상담자 훈련 프로그램을 개발하여 전국
+                초·중·고등학생 등에게 꾸준히 보급하고 있으며, ‘솔리언
+                또래상담’은 한국청소년상담복지개발원에서 개발하고 보급하는
+                또래상담 프로그램의 고유 명칭입니다.
+              </li>
+              <li>
+                <span>청소년 권리교육 사업</span>
+                <br />
+                권리의 주체자이자 의무자인 청소년들이 자신의 권리를 지키고
+                타인의 권리를 존중해주며 희망 속에 살아갈 수 있도록 권리교육
+                프로그램을 개발·보급하고 교육 인력을 양성하는 사업입니다.
+              </li>
             </ul>
-            
-        </div>
-
-        <hr>
-        <div class="howto">
-            <h2>프로그램 참여 방법</h2>
-            <h3>기관 별 홈페이지 참조</h3>
-            <div class="container">
-                <div class="table-responsive" style="width:1600px; height:1000px; overflow:auto">
-                    <br>
-                    <table id="member_table">
-                        <thead>
-                            <tr>
-                                <th>센터명</th>
-                                <th>기관</th>
-                                <th>지역</th>
-                                <th>시/군/구</th>
-                                <th>도로명주소</th>
-                                <th>홈페이지 주소</th>
-                                <th>기관 전화번호</th>
-                                <th>이메일</th>
-                                <th>운영시간</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
+          </li>
+        </ul>
+      </div>
     </div>
-</body>
-
+  </body>
 </html>

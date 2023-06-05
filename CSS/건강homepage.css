@@ -1,99 +1,62 @@
 * {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 a {
-    text-decoration: none;
-    color: #242424;
+  text-decoration: none;
+  color: #242424;
 }
 
 a:hover {
-    text-decoration: underline;
-
+  text-decoration: underline;
 }
 
 ul {
-    overflow: hidden;
+  overflow: hidden;
 }
 
 li {
-    list-style: none;
-    float: left;
+  list-style: none;
+  float: left;
 }
 
 #wrap {
-    width: 1400px;
-    margin: 50px auto;
+  width: 1400px;
+  margin: 50px auto;
 }
 
 #wrap div.main {
-    text-align: center;
+  text-align: center;
 }
 
 #wrap div.main h1 {
-    color: #619273;
-    margin-bottom: 50px;
+  color: #619273;
+  margin-bottom: 50px;
 }
 
 #wrap div {
-    margin: 50px auto ;
+  margin: 50px auto;
 }
 
 #wrap h2 {
-    font-weight: bold;
-    color: #619273;
+  font-weight: bold;
+  color: #619273;
 }
 
 #wrap div.introduce ul.divide > li {
-    width: 50%;
+  width: 50%;
 }
 
 #wrap div.introduce ul.divide > li > div > img {
-    margin-top: 150px;
-    width: 700px;
-    
+  margin-top: 150px;
+  width: 700px;
 }
 
 #wrap div.introduce span {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 #wrap div.introduce li {
-    margin: 10px 0px;
+  margin: 10px 0px;
 }
-
-#wrap div.howto table {
-    width: 1380px;
-    text-align: center;
-    border-collapse: collapse;
-    border: 1px solid #000;
-}
-
-#wrap div.howto table th {
-    border-collapse: collapse;
-    border: 1px solid #000;
-    background-color: #dadada;
-}
-
-#wrap div.howto table th:nth-child(1){
-    width: 170px;
-}
-#wrap div.howto table th:nth-child(2){
-    width: 50px;
-}
-#wrap div.howto table th:nth-child(3){
-    width: 50px;
-}
-#wrap div.howto table th:nth-child(4){
-    width: 70px;
-}
-#wrap div.howto table th:nth-child(5){
-    width: 270px;
-}
-
-#wrap div.howto table td {
-    border-collapse: collapse;
-    border: 1px solid #000;
-}
-

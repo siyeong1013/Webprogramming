@@ -1,0 +1,65 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+  color: #242424;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+ul {
+  overflow: hidden;
+}
+
+li {
+  list-style: none;
+  float: left;
+}
+
+div.howto {
+  width: 1400px;
+  margin: 50px auto;
+}
+
+div.howto h2 {
+  font-weight: bold;
+  color: #619273;
+}
+
+div.howto table {
+  width: 1380px;
+  text-align: center;
+  border-collapse: collapse;
+  border: 1px solid #000;
+}
+div.howto table th {
+  border-collapse: collapse;
+  border: 1px solid #000;
+  background-color: #dadada;
+}
+
+div.howto table th:nth-child(1) {
+  width: 170px;
+}
+div.howto table th:nth-child(2) {
+  width: 50px;
+}
+div.howto table th:nth-child(3) {
+  width: 50px;
+}
+div.howto table th:nth-child(4) {
+  width: 70px;
+}
+div.howto table th:nth-child(5) {
+  width: 270px;
+}
+
+div.howto table td {
+  border-collapse: collapse;
+  border: 1px solid #000;
+}

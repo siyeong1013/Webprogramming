@@ -1,126 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>건강가정지원센터</title>
 
-    <link href="../CSS/건강homepage.css" rel="stylesheet" type="text/css">
+    <link href="../CSS/건강homepage.css" rel="stylesheet" type="text/css" />
+  </head>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $.getJSON("getHlthHomeSpcnList.json", function(data) {
-                let member_data = "";
-                $.each(data, function(key, value) {
-                    member_data += "<tr>";
-                    member_data += "<td>" + value.cnterNm + "</td>";
-                    member_data += "<td>" + value.operMbyCn + "</td>";
-                    member_data += "<td>" + value.ctpvNm + "</td>";
-                    member_data += "<td>" + value.sggNm + "</td>";
-                    member_data += "<td>" + value.roadNmAddr + "</td>";
-                    member_data += "<td>" + `<a href="${value.hmpgAddr}" target="__blank">` + value.hmpgAddr + "</a>" + "</td>";
-                    member_data += "<td>" + value.rprsTelno + "</td>";
-                    member_data += "<td>" + value.dscsnTelno + "</td>";
-                    member_data += "<td>" + value.emlAddr + "</td>";
-                    member_data += "</tr>";
-                });
-                $("#member_table tbody").append(member_data);
-            });
-        });
-    </script>
-</head>
-
-<body>
+  <body>
     <div id="wrap">
-        <div class="main">
-            <img src="https://www.familynet.or.kr/images/header/logo.png">
-            <h1>건강 가정 지원센터</h1>
-        </div>
-        <div>
-            <h2>건강 가정 지원센터 홈페이지</h2>
-            <a href="https://www.familynet.or.kr/web/index.do" target="_blank">홈페이지 바로가기</a>
-        </div>
-        <div class="introduce">
-            <h2>사업소개</h2>
-            <ul class="divide">
-                <li>
-                    <div><img src="https://www.familynet.or.kr/images/sub/center_intro01.png"></div>
-                </li>
-                <li>
-                    <ul>
-                        <li>
-                            <span>가족교육</span>
-                            <br>
-                            가족서비스 수행기관에서는 가족 내에서 발생하는 문제를 예방하고 가족 관계향상, 의사소통방법, 역할지원 등 가족 구성원의 역량을 강화시키기 위한 부모, 부부, 조부모, 자녀 등 가족을 대상으로 한 생애주기별 다양한 교육을 운영하고 있습니다. 더불어, 일·가정 양립과 가족생활의 남성참여 활성화를 위하여 자녀와의 놀이방법 등을 비롯한 좋은 아버지가 되기 위한 양육방법을 알려주는 남성대상 육아교육도 운영됩니다.
-                        </li>
-                        <li>
-                            <span>가족상담</span>
-                            <br>
-                            사회가 급변하고 복잡해지면서 가족원간의 갈등, 불화문제 등을 경험할 가능성이 많아지고 있어 이를 슬기롭게 극복하여 가족이 성장하는데 도움을 주기 위한 가족상담을 운영합니다.
-                        </li>
-                        <li>
-                            <span>가족돌봄나눔</span>
-                            <br>
-                            이웃과 사회의 돌봄이 필요한 가족에게 나눔을 실천하는 사업으로 가정 내 돌봄을 나누고 실천하는 것으로 국한하지 않고 이웃과 지역사회의 돌봄이 필요한 가족으로 확장하여 물적·인적자원을 나눔으로써 돌봄대상 가족의 행복과 삶의 질 향상에 기여합니다.                    
-                        </li>
-                        <li>
-                            <span>다양한가족지원</span>
-                            <br>
-                            다문화가족, 북한이탈주민 가족, 한부모가족, 1인가구, 군인가족, 일탈청소년 가족 등 다양한 가족유형 중 지역적 특성에 맞는 대상을 선정하여 상담·교육·문화가 포함된 통합 맞춤형 서비스를 제공합니다. 가족의 역량을 강화하여 가족의 기능을 발휘하고 사회에 적응할 수 있도록 지원하는 사업을 운영합니다.                    
-                        </li>
-                        <li>
-                            <span>가족역량강화지원</span>
-                            <br>
-                            경제, 심리·정서, 양육 등 다양한 어려움을 겪고 있는 취약가족, 사회적 외상으로 인해 직·간접적으로 피해를 경험한 위기가족 등 다양한 가족을 대상으로 가족단위 맞춤형 서비스를 제공하는 사업입니다.배움지도사, 키움보듬이, 지지리더 파견, 지역사회 자원연계 등을 통하여 취약·위기가족이 가진 복합적 문제해결 및 욕구해소를 위해 지속적인 사례관리 제공, 가족기능 회복과 역량을 강화할 수 있도록 돕습니다.                
-                        </li>
-                        <li>
-                            <span>공동육아나눔터 운영</span>
-                            <br>
-                            부모 등 양육자들이 모여 양육과 관련된 정보를 공유하고 자녀를 함께 돌보는 활동을 통해 가족 기능을 강화해 나갈 수 있도록 공간을 마련하고 제공하는 사업으로, 아이를 키우는 양육자 누구나 이용할 수 있으며 가족품앗이 활동 및 이웃과의 소통을 통해 육아부담을 덜 수 있는 지역사회 열린 공동체 공간입니다.
-                        </li>
-                        <li>
-                            <span>아이돌봄지원사업</span>
-                            <br>
-                            가정의 아이돌봄을 지원하여 아이의 복지증진 및 보호자의 일·가정 양립을 통한 가족구성원의 삶의 질 향상과 양육친화적인 사회환경을 조성하는 사업입니다.
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-            
-        </div>
-
-        <hr>
-        <div class="howto">
-            <h2>프로그램 참여 방법</h2>
-            <h3>기관 별 홈페이지 참조</h3>
-            <div class="container">
-                <div class="table-responsive" style="width:1600px; height:1000px; overflow:auto">
-                    <br>
-                    <table id="member_table">
-                        <thead>
-                            <tr>
-                                <th>센터명</th>
-                                <th>기관</th>
-                                <th>지역</th>
-                                <th>시/군/구</th>
-                                <th>도로명주소</th>
-                                <th>홈페이지 주소</th>
-                                <th>기관 전화번호</th>
-                                <th>전화번호2</th>
-                                <th>이메일</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-
-                        </tbody>
-                    </table>
-                </div>
+      <div class="main">
+        <img src="https://www.familynet.or.kr/images/header/logo.png" />
+        <h1>건강 가정 지원센터</h1>
+      </div>
+      <div>
+        <h2>건강 가정 지원센터 홈페이지</h2>
+        <a href="https://www.familynet.or.kr/web/index.do" target="_blank"
+          >홈페이지 바로가기</a
+        >
+      </div>
+      <div class="introduce">
+        <h2>사업소개</h2>
+        <ul class="divide">
+          <li>
+            <div>
+              <img
+                src="https://www.familynet.or.kr/images/sub/center_intro01.png"
+              />
             </div>
-        </div>
+          </li>
+          <li>
+            <ul>
+              <li>
+                <span>가족교육</span>
+                <br />
+                가족서비스 수행기관에서는 가족 내에서 발생하는 문제를 예방하고
+                가족 관계향상, 의사소통방법, 역할지원 등 가족 구성원의 역량을
+                강화시키기 위한 부모, 부부, 조부모, 자녀 등 가족을 대상으로 한
+                생애주기별 다양한 교육을 운영하고 있습니다. 더불어, 일·가정
+                양립과 가족생활의 남성참여 활성화를 위하여 자녀와의 놀이방법
+                등을 비롯한 좋은 아버지가 되기 위한 양육방법을 알려주는 남성대상
+                육아교육도 운영됩니다.
+              </li>
+              <li>
+                <span>가족상담</span>
+                <br />
+                사회가 급변하고 복잡해지면서 가족원간의 갈등, 불화문제 등을
+                경험할 가능성이 많아지고 있어 이를 슬기롭게 극복하여 가족이
+                성장하는데 도움을 주기 위한 가족상담을 운영합니다.
+              </li>
+              <li>
+                <span>가족돌봄나눔</span>
+                <br />
+                이웃과 사회의 돌봄이 필요한 가족에게 나눔을 실천하는 사업으로
+                가정 내 돌봄을 나누고 실천하는 것으로 국한하지 않고 이웃과
+                지역사회의 돌봄이 필요한 가족으로 확장하여 물적·인적자원을
+                나눔으로써 돌봄대상 가족의 행복과 삶의 질 향상에 기여합니다.
+              </li>
+              <li>
+                <span>다양한가족지원</span>
+                <br />
+                다문화가족, 북한이탈주민 가족, 한부모가족, 1인가구, 군인가족,
+                일탈청소년 가족 등 다양한 가족유형 중 지역적 특성에 맞는 대상을
+                선정하여 상담·교육·문화가 포함된 통합 맞춤형 서비스를
+                제공합니다. 가족의 역량을 강화하여 가족의 기능을 발휘하고 사회에
+                적응할 수 있도록 지원하는 사업을 운영합니다.
+              </li>
+              <li>
+                <span>가족역량강화지원</span>
+                <br />
+                경제, 심리·정서, 양육 등 다양한 어려움을 겪고 있는 취약가족,
+                사회적 외상으로 인해 직·간접적으로 피해를 경험한 위기가족 등
+                다양한 가족을 대상으로 가족단위 맞춤형 서비스를 제공하는
+                사업입니다.배움지도사, 키움보듬이, 지지리더 파견, 지역사회
+                자원연계 등을 통하여 취약·위기가족이 가진 복합적 문제해결 및
+                욕구해소를 위해 지속적인 사례관리 제공, 가족기능 회복과 역량을
+                강화할 수 있도록 돕습니다.
+              </li>
+              <li>
+                <span>공동육아나눔터 운영</span>
+                <br />
+                부모 등 양육자들이 모여 양육과 관련된 정보를 공유하고 자녀를
+                함께 돌보는 활동을 통해 가족 기능을 강화해 나갈 수 있도록 공간을
+                마련하고 제공하는 사업으로, 아이를 키우는 양육자 누구나 이용할
+                수 있으며 가족품앗이 활동 및 이웃과의 소통을 통해 육아부담을 덜
+                수 있는 지역사회 열린 공동체 공간입니다.
+              </li>
+              <li>
+                <span>아이돌봄지원사업</span>
+                <br />
+                가정의 아이돌봄을 지원하여 아이의 복지증진 및 보호자의 일·가정
+                양립을 통한 가족구성원의 삶의 질 향상과 양육친화적인 사회환경을
+                조성하는 사업입니다.
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
     </div>
-</body>
-
+  </body>
 </html>
